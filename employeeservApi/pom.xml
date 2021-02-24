@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>employeeserv</artifactId>
@@ -44,6 +44,24 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.3.12.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -51,11 +69,23 @@
                 <groupId>org.jsonschema2pojo</groupId>
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
                 <version>1.0.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.paypal.bfs.test</groupId>
+                        <artifactId>persistenceannotator</artifactId>
+                        <version>0.0.1-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <sourceDirectory>${project.basedir}/src/main/resources/v1/schema</sourceDirectory>
+                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                     <targetPackage>com.paypal.bfs.test.employeeserv.api.model</targetPackage>
-                    <useCommonsLang3>true</useCommonsLang3>
-                    <includeHashcodeAndEquals>false</includeHashcodeAndEquals>
+                    <customAnnotator>com.paypal.bfs.annotator.AnnotationExecutor</customAnnotator>
+                    <includeConstructorPropertiesAnnotation>true</includeConstructorPropertiesAnnotation>
+                    <includeConstructors>true</includeConstructors>
+                    <includeHashcodeAndEquals>true</includeHashcodeAndEquals>
+                    <constructorsRequiredPropertiesOnly>true</constructorsRequiredPropertiesOnly>
+                    <includeAdditionalProperties>false</includeAdditionalProperties>
                 </configuration>
                 <executions>
                     <execution>

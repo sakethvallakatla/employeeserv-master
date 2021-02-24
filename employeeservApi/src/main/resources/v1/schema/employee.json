@@ -3,25 +3,101 @@
   "description": "Employee resource object",
   "type": "object",
   "properties": {
+    "persistence": true,
     "id": {
       "description": "employee id",
-      "type": "integer"
+      "type": "integer",
+      "excludedFromEqualsAndHashCode": true
     },
     "first_name": {
       "description": "first name",
       "type": "string",
       "minLength": 1,
-      "maxLength": 255
+      "maxLength": 255,
+      "notNull": true
     },
     "last_name": {
       "description": "last name",
       "type": "string",
       "minLength": 1,
-      "maxLength": 255
+      "maxLength": 255,
+      "notNull": true
+    },
+    "date_of_birth": {
+      "description": "Date of Birth",
+      "type": "string",
+      "format": "date",
+      "customPattern": "mm-dd-yyyy",
+      "minLength": 10,
+      "maxLength": 1,
+      "notNull": true
+    },
+    "address": {
+      "description": "Address",
+      "type": "object",
+      "notNull": true,
+      "properties": {
+        "persistence": true,
+        "id": {
+          "description": "ID for persistence",
+          "type": "integer",
+          "excludedFromEqualsAndHashCode": true
+        },
+        "line1": {
+          "description": "Line 1 of address",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "notNull": true
+        },
+        "line2": {
+          "description": "Line 2 of address",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "city": {
+          "description": "City",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "notNull": true
+        },
+        "state": {
+          "description": "State",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "notNull": true
+        },
+        "country": {
+          "description": "Country",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255,
+          "notNull": true
+        },
+        "zip_code": {
+          "description": "zip code",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12,
+          "notNull": true
+        }
+      },
+      "required": [
+        "line1",
+        "city",
+        "state",
+        "country",
+        "zip_code"
+      ]
     }
   },
   "required": [
     "first_name",
-    "last_name"
+    "last_name",
+    "date_of_birth",
+    "address"
   ]
 }
